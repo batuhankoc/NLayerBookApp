@@ -14,7 +14,7 @@ namespace NLayer.Service.Mapping
         public MapProfile()
         {
             CreateMap<Book, BookDto>().ReverseMap();
-            CreateMap<Book, GetProductWithPostDto>().ReverseMap();
+            CreateMap<Book, GetBookWithPostDto>().ReverseMap();
         }
     }
 }
