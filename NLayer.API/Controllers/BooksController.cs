@@ -41,6 +41,13 @@ namespace NLayer.API.Controllers
             var booksDto = _mapper.Map<BookDto>(book);
             return Ok(CustomResponseDto<BookDto>.Success(201, booksDto));
         }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetProductWithPostMethod(GetProductWithPostDto bookDto)
+        {
+            var book = await _service.GetByIdAsync(bookDto.Id);
+            var booksDto = _mapper.Map<BookDto>(book);
+            return Ok(booksDto);
+        }
         [HttpPut]
         public async Task<IActionResult> Update(BookDto bookDto)
         {
