@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayer.Core.DTOs;
@@ -20,6 +21,7 @@ namespace NLayer.API.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> All()
         {
@@ -27,6 +29,7 @@ namespace NLayer.API.Controllers
             var booksDto = _mapper.Map<List<BookDto>>(books.ToList());
             return Ok(CustomResponseDto<List<BookDto>>.Success(200, booksDto));
         }
+        [Authorize(Roles ="admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
