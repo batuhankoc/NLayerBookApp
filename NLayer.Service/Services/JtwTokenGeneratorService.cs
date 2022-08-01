@@ -11,13 +11,13 @@ namespace NLayer.Service.Services
 {
     public class JtwTokenGeneratorService
     {
-        public string GenerateToken()
+        public string GenerateToken(string role)
         {
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Batuhanbatuhan.."));
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Role, "admin"));
+            claims.Add(new Claim(ClaimTypes.Role, role));
 
             JwtSecurityToken token = new JwtSecurityToken(issuer: "https://localhost",claims: claims, audience: "https://localhost", 
                 notBefore: DateTime.Now, expires: DateTime.Now.AddMinutes(2), signingCredentials: credentials);

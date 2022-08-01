@@ -9,9 +9,9 @@ namespace NLayer.API.Controllers
     public class AuthController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Login()
+        public IActionResult Login(string role)
         {
-            return Created("", new JtwTokenGeneratorService().GenerateToken());
+            return Created("", new JtwTokenGeneratorService().GenerateToken(role));
         }
     }
 }
