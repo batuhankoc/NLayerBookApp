@@ -52,7 +52,7 @@ namespace NLayer.API.Controllers
         }
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register(RegisterModel model)
         {
             var userExist = await _userManager.FindByNameAsync(model.Username);
             if (userExist != null)
@@ -72,6 +72,8 @@ namespace NLayer.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, 
                     new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
             }
+            await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+            await _userManager.AddToRoleAsync(user, UserRoles.User);
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
     

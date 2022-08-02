@@ -8,7 +8,6 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -21,7 +20,7 @@ namespace NLayer.API.Controllers
             _mapper = mapper;
             _service = service;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> All()
         {
@@ -29,6 +28,7 @@ namespace NLayer.API.Controllers
             var booksDto = _mapper.Map<List<BookDto>>(books.ToList());
             return Ok(CustomResponseDto<List<BookDto>>.Success(200, booksDto));
         }
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
