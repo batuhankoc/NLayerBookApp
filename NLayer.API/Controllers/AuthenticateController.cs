@@ -72,8 +72,8 @@ namespace NLayer.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, 
                     new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
             }
-            await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
-            await _userManager.AddToRoleAsync(user, UserRoles.User);
+            await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+            await _userManager.AddToRoleAsync(user, UserRoles.Admin);
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
     
